@@ -1,0 +1,11 @@
+streamlit
+pandas
+numpy
+plotly
+scikit-learn
+statsmodels
+scipy
+openpyxl
+reportlab
+requests
+beautifulsoup4
