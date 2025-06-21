@@ -51,8 +51,8 @@ if not st.session_state.authenticated:
     # Add some branding/context
     st.markdown("""
     <div style="background: linear-gradient(90deg, #1f4e79 0%, #2d5a87 100%); padding: 1rem 2rem; border-radius: 10px; margin-bottom: 2rem;">
-    <h3 style="color: #FFFFFF; margin: 0;">🔬 The Firm - Statistical Analytics Division</h3>
-    <p style="color: #ff6b35; margin: 0; font-style: italic;">Confidential Salary Intelligence Platform</p>
+        <h3 style="color: #FFFFFF; margin: 0;">🔬 The Firm - Statistical Analytics Division</h3>
+        <p style="color: #ff6b35; margin: 0; font-style: italic;">Confidential Salary Intelligence Platform</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -69,18 +69,18 @@ if not st.session_state.authenticated:
                 st.rerun()
             else:
                 st.error("❌ Invalid access code")
-    
-    st.info("💡 **For Colleague:** This is a secure development environment for testing our salary intelligence model. Please provide feedback as you explore the different features.")
-    
-    st.markdown("---")
-    st.markdown("""
-    **🎯 What to Test:**
-    - Different role selections (P1, P2, P3 levels)
-    - Various state combinations
-    - Competitor selection impact
-    - Model confidence levels
-    - PDF/Excel exports
-    """)
+        
+        st.info("💡 **For Colleague:** This is a secure development environment for testing our salary intelligence model. Please provide feedback as you explore the different features.")
+        
+        st.markdown("---")
+        st.markdown("""
+        **🎯 What to Test:**
+        - Different role selections (P1, P2, P3 levels)
+        - Various state combinations
+        - Competitor selection impact
+        - Model confidence levels
+        - PDF/Excel exports
+        """)
     
     st.stop()
 
@@ -93,7 +93,6 @@ st.markdown("""
     margin: -1rem -1rem 2rem -1rem;
     border-bottom: 3px solid #ff6b35;
 }
-
 .company-logo {
     color: #FFFFFF !important;
     font-size: 28px;
@@ -103,14 +102,12 @@ st.markdown("""
     text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     letter-spacing: 1px;
 }
-
 .company-tagline {
     color: #ff6b35;
     font-size: 14px;
     margin: 0;
     font-style: italic;
 }
-
 .section-header {
     background: linear-gradient(90deg, #ff6b35 0%, #ff8c42 100%);
     color: white;
@@ -119,7 +116,6 @@ st.markdown("""
     font-weight: bold;
     margin: 1rem 0 0.5rem 0;
 }
-
 .stat-card {
     background: white;
     padding: 1rem;
@@ -128,11 +124,9 @@ st.markdown("""
     border-left: 4px solid #1f4e79;
     margin-bottom: 1rem;
 }
-
 .confidence-high { border-left-color: #28a745; }
 .confidence-medium { border-left-color: #ffc107; }
 .confidence-low { border-left-color: #dc3545; }
-
 .model-metric {
     background: #f8f9fa;
     padding: 0.5rem;
@@ -146,8 +140,8 @@ st.markdown("""
 # === HEADER ===
 st.markdown("""
 <div class="main-header">
-<h1 class="company-logo">🔬 Advanced Market Intelligence Platform</h1>
-<p class="company-tagline">Statistical Salary Modeling | The Firm Predictive Analytics</p>
+    <h1 class="company-logo">🔬 Advanced Market Intelligence Platform</h1>
+    <p class="company-tagline">Statistical Salary Modeling | The Firm Predictive Analytics</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -168,32 +162,172 @@ def get_config():
             'Quality Engineer - P2 (Mid: 1-3 years)',
             'Quality Engineer - P3 (Senior: 5-7 years)',
             'Product Manager',
-            'Industrial Engineer'
+            'Industrial Engineer',
+            'Product Marketing Manager - Entry (0-2 years)',
+            'Product Marketing Manager - Mid (2-5 years)',
+            'Product Marketing Manager - Senior (5-8 years)',
+            'Product Marketing Manager - Principal (8+ years)'
         ],
         'transparent_states': {
+            # === TIER 1: ESTABLISHED PAY TRANSPARENCY MARKETS ===
             'California': {
-                'metros': ['Los Angeles', 'San Francisco Bay Area', 'San Diego', 'Sacramento'],
-                'col_index': 142,
+                'metros': ['Los Angeles', 'San Francisco Bay Area', 'San Diego', 'Sacramento', 'Riverside'],
+                'col_index': 148,  # Updated 2025 index
                 'market_maturity': 'High',
-                'sample_weight': 1.2
+                'sample_weight': 1.3,
+                'law_effective': '2023-01-01',
+                'employer_threshold': '15+ employees',
+                'posting_requirements': 'Salary range in all job postings'
             },
             'Colorado': {
-                'metros': ['Denver-Boulder', 'Colorado Springs'],
-                'col_index': 105,
+                'metros': ['Denver-Boulder', 'Colorado Springs', 'Fort Collins'],
+                'col_index': 102,  # Updated 2025 index
                 'market_maturity': 'High',
-                'sample_weight': 1.0
+                'sample_weight': 1.2,
+                'law_effective': '2021-01-01',
+                'employer_threshold': 'All employers',
+                'posting_requirements': 'Pay scale, benefits, promotional opportunities'
+            },
+            'Washington': {
+                'metros': ['Seattle-Tacoma', 'Spokane', 'Vancouver'],
+                'col_index': 114,  # Updated 2025 index
+                'market_maturity': 'High',
+                'sample_weight': 1.2,
+                'law_effective': '2023-01-01',
+                'employer_threshold': '15+ employees',
+                'posting_requirements': 'Wage/salary range and benefits description'
             },
             'New York': {
-                'metros': ['Buffalo', 'Rochester', 'Albany', 'Syracuse'],
-                'col_index': 139,
+                'metros': ['Albany', 'Rochester', 'Buffalo', 'Syracuse', 'Binghamton'],
+                'col_index': 148,  # Updated 2025 index - excludes NYC metro
                 'market_maturity': 'High',
-                'sample_weight': 1.1
+                'sample_weight': 1.2,
+                'law_effective': '2023-09-17',
+                'employer_threshold': '4+ employees',
+                'posting_requirements': 'Good faith salary range'
             },
-            'Illinois': {
-                'metros': ['Chicago Metro', 'Rockford'],
-                'col_index': 108,
+            'Connecticut': {
+                'metros': ['Hartford', 'Bridgeport', 'New Haven', 'Waterbury'],
+                'col_index': 112,  # Updated 2025 index
                 'market_maturity': 'High',
-                'sample_weight': 1.1
+                'sample_weight': 1.1,
+                'law_effective': '2021-10-01',
+                'employer_threshold': 'All employers',
+                'posting_requirements': 'Wage range upon request or job offer'
+            },
+            
+            # === TIER 2: NEW 2025 PAY TRANSPARENCY MARKETS ===
+            'Illinois': {
+                'metros': ['Chicago Metro', 'Rockford', 'Peoria', 'Springfield'],
+                'col_index': 94,  # Updated 2025 index
+                'market_maturity': 'High',
+                'sample_weight': 1.1,
+                'law_effective': '2025-01-01',
+                'employer_threshold': '15+ employees',
+                'posting_requirements': 'Pay scale and benefits in job postings'
+            },
+            'Minnesota': {
+                'metros': ['Twin Cities', 'Rochester', 'Duluth', 'St. Cloud'],
+                'col_index': 95,  # Updated 2025 index
+                'market_maturity': 'High',
+                'sample_weight': 1.0,
+                'law_effective': '2025-01-01',
+                'employer_threshold': '30+ employees',
+                'posting_requirements': 'Starting salary range and benefits'
+            },
+            'Maryland': {
+                'metros': ['Baltimore', 'Frederick', 'Hagerstown', 'Salisbury'],
+                'col_index': 124,  # Updated 2025 index
+                'market_maturity': 'High',
+                'sample_weight': 1.1,
+                'law_effective': '2024-10-01',
+                'employer_threshold': 'All employers',
+                'posting_requirements': 'Wage range in job postings'
+            },
+            'Hawaii': {
+                'metros': ['Honolulu', 'Hilo', 'Kailua-Kona'],
+                'col_index': 184,  # Highest in nation
+                'market_maturity': 'Medium',
+                'sample_weight': 0.8,
+                'law_effective': '2024-01-01',
+                'employer_threshold': '50+ employees',
+                'posting_requirements': 'Salary range or hourly rate'
+            },
+            
+            # === TIER 3: EMERGING 2025 MARKETS ===
+            'Rhode Island': {
+                'metros': ['Providence', 'Newport', 'Warwick'],
+                'col_index': 112,  # Updated 2025 index
+                'market_maturity': 'Medium',
+                'sample_weight': 0.9,
+                'law_effective': '2023-01-01',
+                'employer_threshold': 'All employers',
+                'posting_requirements': 'Wage range upon request'
+            },
+            'Nevada': {
+                'metros': ['Las Vegas', 'Reno', 'Carson City'],
+                'col_index': 101,  # Updated 2025 index
+                'market_maturity': 'Medium',
+                'sample_weight': 0.9,
+                'law_effective': '2021-10-01',
+                'employer_threshold': 'All employers',
+                'posting_requirements': 'Wage range after interview'
+            },
+            'Massachusetts': {
+                'metros': ['Boston Metro', 'Worcester', 'Springfield', 'Cape Cod'],
+                'col_index': 150,  # Updated 2025 index
+                'market_maturity': 'High',
+                'sample_weight': 1.2,
+                'law_effective': '2025-10-29',
+                'employer_threshold': '25+ employees',
+                'posting_requirements': 'Pay range in job postings (starting Oct 2025)'
+            },
+            'Oregon': {
+                'metros': ['Portland', 'Eugene', 'Salem', 'Bend'],
+                'col_index': 112,  # Updated 2025 index
+                'market_maturity': 'High',
+                'sample_weight': 1.0,
+                'law_effective': '2024-01-01',
+                'employer_threshold': 'All employers',
+                'posting_requirements': 'Salary range upon request'
+            },
+            'New Jersey': {
+                'metros': ['Trenton', 'Atlantic City', 'Camden'],  # Excluding NYC metro
+                'col_index': 125,  # Updated 2025 index
+                'market_maturity': 'High',
+                'sample_weight': 1.1,
+                'law_effective': '2025-06-01',
+                'employer_threshold': '10+ employees',
+                'posting_requirements': 'Wage ranges and benefits (starting June 2025)'
+            },
+            'Vermont': {
+                'metros': ['Burlington', 'Montpelier', 'Rutland'],
+                'col_index': 116,  # Updated 2025 index
+                'market_maturity': 'Medium',
+                'sample_weight': 0.8,
+                'law_effective': '2025-07-01',
+                'employer_threshold': '5+ employees',
+                'posting_requirements': 'Compensation range (starting July 2025)'
+            }
+        },
+        'limited_markets': {
+            # === LIMITED DATA SOURCES ===
+            'Texas - DFW': {
+                'metros': ['Dallas-Fort Worth', 'Austin', 'Houston', 'San Antonio'],
+                'col_index': 93,  # Updated 2025 index
+                'market_maturity': 'Limited',
+                'sample_weight': 0.6,
+                'law_effective': 'N/A - Voluntary/Indirect',
+                'employer_threshold': 'Voluntary disclosure',
+                'posting_requirements': 'Limited: HB723 anti-retaliation + voluntary disclosure',
+                'data_sources': [
+                    'Companies voluntarily disclosing (40%+ of job postings)',
+                    'Remote positions subject to other state laws',
+                    'Public sector positions (pending HB 2196)',
+                    'Anti-salary history discrimination (HB 723)',
+                    'Target market for prediction validation'
+                ],
+                'confidence_note': 'Lower confidence due to voluntary disclosure patterns'
             }
         },
         'target_market': {
@@ -216,9 +350,22 @@ def get_config():
             'Stanley',
             'Ideal Industries',
             'Hilti'
-        ]
+        ],
+        'pmm_companies': {
+            'Technology': ['Microsoft', 'Google', 'Apple', 'Salesforce', 'HubSpot', 'Zoom', 'Slack'],
+            'Manufacturing': ['Caterpillar', 'John Deere', 'Honeywell', 'GE', '3M', 'Siemens'],
+            'Healthcare': ['Johnson & Johnson', 'Pfizer', 'Medtronic', 'Abbott', 'Stryker'],
+            'Finance': ['JPMorgan Chase', 'Goldman Sachs', 'American Express', 'Visa', 'PayPal'],
+            'Consulting': ['McKinsey', 'BCG', 'Bain', 'Deloitte', 'Accenture']
+        },
+        'industry_multipliers': {
+            'Technology': {'base_multiplier': 1.25, 'skills_premium': 1.15, 'equity_comp': True},
+            'Manufacturing': {'base_multiplier': 0.85, 'skills_premium': 1.05, 'equity_comp': False},
+            'Healthcare': {'base_multiplier': 1.10, 'skills_premium': 1.10, 'equity_comp': False},
+            'Finance': {'base_multiplier': 1.20, 'skills_premium': 1.08, 'equity_comp': False},
+            'Consulting': {'base_multiplier': 1.15, 'skills_premium': 1.12, 'equity_comp': False}
+        }
     }
-    
     return config
 
 # === ENHANCED DATA GENERATOR WITH CSV INTEGRATION ===
@@ -313,7 +460,7 @@ def process_uploaded_csv(uploaded_file, selected_role):
             # Map state names to config
             state_mapping = {
                 'texas': 'Texas - DFW',
-                'tx': 'Texas - DFW',
+                'tx': 'Texas - DFW', 
                 'dallas': 'Texas - DFW',
                 'dfw': 'Texas - DFW',
                 'california': 'California',
@@ -374,9 +521,14 @@ def generate_market_intelligence_data(role, selected_states, competitors, data_s
             'Quality Engineer - P2 (Mid: 1-3 years)': {'base': 90000, 'range': 10000},
             'Quality Engineer - P3 (Senior: 5-7 years)': {'base': 105000, 'range': 18000},
             'Product Manager': {'base': 120000, 'range': 30000},
-            'Industrial Engineer': {'base': 88000, 'range': 15000}
+            'Industrial Engineer': {'base': 88000, 'range': 15000},
+            # Product Marketing Manager ranges (cross-industry baseline)
+            'Product Marketing Manager - Entry (0-2 years)': {'base': 75000, 'range': 15000},
+            'Product Marketing Manager - Mid (2-5 years)': {'base': 95000, 'range': 20000},
+            'Product Marketing Manager - Senior (5-8 years)': {'base': 125000, 'range': 25000},
+            'Product Marketing Manager - Principal (8+ years)': {'base': 155000, 'range': 35000}
         }
-        
+
         # Base salary ranges by role complexity (updated with reality check)
         if role in dfw_reality_ranges:
             role_data = dfw_reality_ranges[role]
@@ -390,14 +542,17 @@ def generate_market_intelligence_data(role, selected_states, competitors, data_s
                 'Quality Engineer - P2 (Mid: 1-3 years)': {'base': 90000, 'range': 10000, 'premium': 0.9}
             }
             role_data = role_complexity.get(role, {'base': 95000, 'range': 15000, 'premium': 1.0})
-        
+
         data = []
         
         for state in selected_states:
-            if state not in config['transparent_states']:
-                continue
-            
-            state_info = config['transparent_states'][state]
+            # Handle Texas DFW as special limited market
+            if state == 'Texas - DFW':
+                state_info = config['limited_markets']['Texas - DFW']
+            else:
+                if state not in config['transparent_states']:
+                    continue
+                state_info = config['transparent_states'][state]
             
             # Calculate state adjustment factors
             col_adjustment = state_info['col_index'] / 100
@@ -423,6 +578,10 @@ def generate_market_intelligence_data(role, selected_states, competitors, data_s
                 
                 # Generate multiple postings per company/state
                 num_postings = np.random.randint(5, 12)
+                
+                # Reduce postings for Texas (limited data)
+                if state == 'Texas - DFW':
+                    num_postings = max(2, int(num_postings * 0.4))  # 40% of normal volume
                 
                 for i in range(num_postings):
                     # Calculate adjusted salary with realistic variation
@@ -453,10 +612,14 @@ def generate_market_intelligence_data(role, selected_states, competitors, data_s
                         'col_index': state_info['col_index'],
                         'market_maturity': state_info['market_maturity'],
                         'sample_weight': state_info['sample_weight'],
-                        'source': np.random.choice(['Indeed', 'LinkedIn', 'ZipRecruiter'], p=[0.5, 0.3, 0.2]),
+                        'source': np.random.choice(['Indeed', 'LinkedIn', 'ZipRecruiter'] if state != 'Texas - DFW' 
+                                                 else ['Indeed', 'LinkedIn', 'Company Direct', 'Remote Posting'], 
+                                                 p=[0.5, 0.3, 0.2] if state != 'Texas - DFW' 
+                                                 else [0.3, 0.3, 0.2, 0.2]),
                         'date_posted': (datetime.now() - timedelta(days=np.random.randint(1, 30))).strftime('%Y-%m-%d'),
                         'experience_level': np.random.choice(['Entry', 'Mid', 'Senior'], p=[0.3, 0.5, 0.2]),
-                        'data_source': 'simulated'
+                        'data_source': 'simulated',
+                        'transparency_level': 'Limited' if state == 'Texas - DFW' else 'Full'
                     })
         
         simulated_data = pd.DataFrame(data)
@@ -474,7 +637,6 @@ def generate_market_intelligence_data(role, selected_states, competitors, data_s
 # === STATISTICAL ANALYSIS FUNCTIONS ===
 def calculate_market_differentials(data, base_state='Illinois'):
     """Calculate statistical differentials between markets"""
-    
     # Group by state and calculate statistics
     state_stats = data.groupby('state').agg({
         'avg_salary': ['mean', 'std', 'count'],
@@ -491,6 +653,7 @@ def calculate_market_differentials(data, base_state='Illinois'):
         base_salary = state_stats['avg_salary'].mean()
     
     state_stats['raw_differential'] = (state_stats['avg_salary'] / base_salary - 1) * 100
+    
     state_stats['col_adjusted_differential'] = state_stats['raw_differential'] - \
         ((state_stats['col_index'] / state_stats[state_stats['state'] == base_state]['col_index'].iloc[0] - 1) * 100 if base_state in state_stats['state'].values else 0)
     
@@ -508,7 +671,6 @@ def calculate_market_differentials(data, base_state='Illinois'):
 
 def predict_dfw_salary(state_differentials, role):
     """Predict DFW salary using robust statistical modeling with overfitting prevention"""
-    
     config = get_config()
     
     # Add realistic noise to prevent overfitting
@@ -548,17 +710,8 @@ def predict_dfw_salary(state_differentials, role):
     model.fit(X, y)
     
     # Cross-validation for realistic performance assessment
-    # Ensure we have at least 2 folds for cross-validation
-    cv_folds = max(2, min(5, len(state_differentials)))
-    
-    # Only perform cross-validation if we have enough data
-    if len(X) >= cv_folds:
-        cv_scores = cross_val_score(model, X, y, cv=cv_folds, scoring='r2')
-        cv_r2 = cv_scores.mean()
-    else:
-        # Fall back to simple R² if insufficient data for cross-validation
-        y_pred = model.predict(X)
-        cv_r2 = r2_score(y, y_pred)
+    cv_scores = cross_val_score(model, X, y, cv=min(5, len(state_differentials)), scoring='r2')
+    cv_r2 = cv_scores.mean()
     
     # Predict for DFW
     dfw_col_index = config['target_market']['Texas - DFW']['col_index']
@@ -567,6 +720,7 @@ def predict_dfw_salary(state_differentials, role):
     
     # Calculate realistic prediction interval using bootstrap
     bootstrap_predictions = []
+    
     for i in range(100):  # Bootstrap samples
         # Resample data
         indices = np.random.choice(len(X), size=len(X), replace=True)
@@ -590,12 +744,7 @@ def predict_dfw_salary(state_differentials, role):
     # Realistic confidence based on cross-validation and data quality
     data_quality_score = min(100, len(state_differentials) * 20)  # More states = higher confidence
     model_quality_score = max(0, cv_r2 * 100)
-    
-    # Adjust confidence based on amount of data available
-    if len(state_differentials) < 2:
-        confidence_level = min(60, (data_quality_score * 0.3 + model_quality_score * 0.7))  # Lower confidence with minimal data
-    else:
-        confidence_level = (data_quality_score * 0.3 + model_quality_score * 0.7)
+    confidence_level = (data_quality_score * 0.3 + model_quality_score * 0.7)
     
     return {
         'predicted_salary': dfw_prediction,
@@ -609,53 +758,23 @@ def predict_dfw_salary(state_differentials, role):
 
 def perform_statistical_tests(data):
     """Perform statistical analysis on the data"""
+    # Test for normality of salary distribution
+    _, normality_p = stats.shapiro(data['avg_salary'].sample(min(5000, len(data))))
     
-    # Check if we have enough data for statistical tests
-    if len(data) < 3:
-        return {
-            'normality_test': {'statistic': 'Insufficient data', 'p_value': None, 'is_normal': None},
-            'anova_test': {'f_statistic': None, 'p_value': None, 'significant': None},
-            'col_correlation': {'correlation': None, 'p_value': None, 'significant': None}
-        }
-    
-    # Test for normality of salary distribution (only if we have enough data)
-    salary_data = data['avg_salary'].dropna()
-    if len(salary_data) >= 3:
-        try:
-            sample_size = min(5000, len(salary_data))
-            sample_data = salary_data.sample(sample_size) if len(salary_data) > sample_size else salary_data
-            _, normality_p = stats.shapiro(sample_data)
-            normality_result = {'statistic': 'Shapiro-Wilk', 'p_value': normality_p, 'is_normal': normality_p > 0.05}
-        except Exception as e:
-            normality_result = {'statistic': 'Error', 'p_value': None, 'is_normal': None}
+    # ANOVA test between states
+    state_groups = [group['avg_salary'].values for name, group in data.groupby('state')]
+    if len(state_groups) > 1:
+        f_stat, anova_p = stats.f_oneway(*state_groups)
     else:
-        normality_result = {'statistic': 'Insufficient data', 'p_value': None, 'is_normal': None}
+        f_stat, anova_p = 0, 1
     
-    # ANOVA test between states (only if we have multiple states with sufficient data)
-    state_groups = [group['avg_salary'].dropna().values for name, group in data.groupby('state') if len(group) >= 2]
-    if len(state_groups) > 1 and all(len(group) >= 2 for group in state_groups):
-        try:
-            f_stat, anova_p = stats.f_oneway(*state_groups)
-            anova_result = {'f_statistic': f_stat, 'p_value': anova_p, 'significant': anova_p < 0.05}
-        except Exception as e:
-            anova_result = {'f_statistic': None, 'p_value': None, 'significant': None}
-    else:
-        anova_result = {'f_statistic': None, 'p_value': None, 'significant': None}
-    
-    # Correlation between cost of living and salary (only if we have enough data)
-    if len(data) >= 3 and 'col_index' in data.columns:
-        try:
-            correlation, corr_p = stats.pearsonr(data['col_index'], data['avg_salary'])
-            correlation_result = {'correlation': correlation, 'p_value': corr_p, 'significant': corr_p < 0.05}
-        except Exception as e:
-            correlation_result = {'correlation': None, 'p_value': None, 'significant': None}
-    else:
-        correlation_result = {'correlation': None, 'p_value': None, 'significant': None}
+    # Correlation between cost of living and salary
+    correlation, corr_p = stats.pearsonr(data['col_index'], data['avg_salary'])
     
     return {
-        'normality_test': normality_result,
-        'anova_test': anova_result,
-        'col_correlation': correlation_result
+        'normality_test': {'statistic': 'Shapiro-Wilk', 'p_value': normality_p, 'is_normal': normality_p > 0.05},
+        'anova_test': {'f_statistic': f_stat, 'p_value': anova_p, 'significant': anova_p < 0.05},
+        'col_correlation': {'correlation': correlation, 'p_value': corr_p, 'significant': corr_p < 0.05}
     }
 
 # === MAIN APPLICATION ===
@@ -666,7 +785,7 @@ def main():
     with st.sidebar:
         st.markdown("""
         <div style="background: #ff6b35; color: white; padding: 1rem; border-radius: 5px; text-align: center; margin-bottom: 1rem;">
-        <h3 style="margin: 0;">🔬 Advanced Analytics</h3>
+            <h3 style="margin: 0;">🔬 Advanced Analytics</h3>
         </div>
         """, unsafe_allow_html=True)
         
@@ -679,13 +798,99 @@ def main():
         
         # State Selection
         st.markdown("### 🗺️ Pay Transparency Markets")
-        available_states = list(config['transparent_states'].keys())
-        selected_states = st.multiselect(
-            "Source Markets:",
-            available_states,
-            default=['California', 'Colorado', 'Illinois'],
-            help="Select transparent states for salary data collection"
-        )
+        
+        # Organize states by tier for better user experience
+        st.markdown("**Select from multiple tiers of pay transparency markets:**")
+        
+        # Create expandable sections for different tiers
+        with st.expander("🏆 **Tier 1: Established Markets** (2021-2023 laws)", expanded=True):
+            tier1_states = ['California', 'Colorado', 'Washington', 'New York', 'Connecticut']
+            selected_tier1 = st.multiselect(
+                "Mature pay transparency markets:",
+                tier1_states,
+                default=['California', 'Colorado', 'Washington'],
+                help="States with established pay transparency laws and robust data"
+            )
+        
+        with st.expander("🚀 **Tier 2: New 2024-2025 Markets** (Recently effective)", expanded=False):
+            tier2_states = ['Illinois', 'Minnesota', 'Maryland', 'Hawaii']
+            selected_tier2 = st.multiselect(
+                "Recently implemented laws:",
+                tier2_states,
+                default=['Illinois'],
+                help="States with new pay transparency laws effective 2024-2025"
+            )
+        
+        with st.expander("⭐ **Tier 3: Emerging Markets** (High-value additions)", expanded=False):
+            tier3_states = ['Massachusetts', 'Oregon', 'Nevada', 'Rhode Island', 'New Jersey', 'Vermont']
+            selected_tier3 = st.multiselect(
+                "Additional high-value markets:",
+                tier3_states,
+                default=[],
+                help="Additional states with pay transparency laws for expanded analysis"
+            )
+        
+        with st.expander("🎯 **Texas DFW (Limited Data)** - Target market validation", expanded=False):
+            st.markdown("**⚠️ Note**: Texas has no statewide pay transparency law, but limited data available from:")
+            st.markdown("- Voluntary corporate disclosure (40%+ of job postings)")
+            st.markdown("- Remote positions subject to other state laws") 
+            st.markdown("- HB 723 anti-salary history discrimination")
+            st.markdown("- Public sector positions (pending HB 2196)")
+            
+            include_texas = st.checkbox(
+                "Include Texas DFW (Limited confidence data)",
+                help="Add Texas as comparison market despite limited transparency data"
+            )
+            
+        # Combine all selected states
+        selected_states = selected_tier1 + selected_tier2 + selected_tier3
+        
+        # Handle Texas inclusion
+        if include_texas:
+            selected_states.append('Texas - DFW')
+        
+        if selected_states:
+            st.success(f"✅ **{len(selected_states)} markets selected**: {', '.join(selected_states)}")
+            
+            # Show market coverage summary
+            transparent_count = len([s for s in selected_states if s != 'Texas - DFW'])
+            limited_count = len([s for s in selected_states if s == 'Texas - DFW'])
+            
+            total_metros = 0
+            for state in selected_states:
+                if state == 'Texas - DFW':
+                    total_metros += len(config['limited_markets']['Texas - DFW']['metros'])
+                else:
+                    total_metros += len(config['transparent_states'][state]['metros'])
+            
+            coverage_msg = f"📍 **Market Coverage**: {total_metros} metropolitan areas"
+            if transparent_count > 0 and limited_count > 0:
+                coverage_msg += f" ({transparent_count} transparent + {limited_count} limited markets)"
+            elif transparent_count > 0:
+                coverage_msg += f" ({transparent_count} transparent markets)"
+            
+            st.info(coverage_msg)
+        else:
+            st.warning("⚠️ Please select at least one market for analysis")
+        
+        # Quick selection buttons
+        st.markdown("**Quick Select:**")
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if st.button("🔥 High-Volume Markets", help="CA, WA, NY, IL - Large data pools"):
+                selected_states = ['California', 'Washington', 'New York', 'Illinois']
+                st.rerun()
+        
+        with col2:
+            if st.button("💰 High-COL Markets", help="CA, MA, WA, CT - Premium markets"):
+                selected_states = ['California', 'Massachusetts', 'Washington', 'Connecticut']
+                st.rerun()
+        
+        with col3:
+            if st.button("🎯 All Available", help="Select all available markets"):
+                selected_states = list(config['transparent_states'].keys())
+                st.rerun()
         
         # Competitor Selection
         st.markdown("### 🏢 Competitive Intelligence")
@@ -713,7 +918,6 @@ def main():
             
             # Sample CSV download
             col1, col2 = st.columns([2, 1])
-            
             with col1:
                 uploaded_file = st.file_uploader(
                     "Upload CSV file:",
@@ -752,16 +956,16 @@ def main():
                     
                     with st.expander("📋 Preview Data"):
                         st.dataframe(preview_df.head(), use_container_width=True)
-                    
-                    # Data validation
-                    required_cols = ['state', 'company', 'role', 'min_salary', 'max_salary']
-                    missing_cols = [col for col in required_cols if col not in preview_df.columns]
-                    
-                    if missing_cols:
-                        st.warning(f"⚠️ Missing columns: {missing_cols}")
-                    else:
-                        st.success("✅ All required columns present")
                         
+                        # Data validation
+                        required_cols = ['state', 'company', 'role', 'min_salary', 'max_salary']
+                        missing_cols = [col for col in required_cols if col not in preview_df.columns]
+                        
+                        if missing_cols:
+                            st.warning(f"⚠️ Missing columns: {missing_cols}")
+                        else:
+                            st.success("✅ All required columns present")
+                            
                 except Exception as e:
                     st.error(f"❌ Error reading CSV: {str(e)}")
         
@@ -779,13 +983,10 @@ def main():
         
         # Show analysis parameters
         col1, col2, col3 = st.columns(3)
-        
         with col1:
             st.info(f"**Role:** {selected_role}")
-        
         with col2:
             st.info(f"**Source Markets:** {len(selected_states)} states")
-        
         with col3:
             st.info(f"**Competitors:** {len(selected_competitors)} companies")
         
@@ -793,10 +994,10 @@ def main():
         with st.spinner("🔍 Collecting market intelligence..."):
             time.sleep(1)
             market_data = generate_market_intelligence_data(
-                selected_role,
-                selected_states,
-                selected_competitors,
-                data_source,
+                selected_role, 
+                selected_states, 
+                selected_competitors, 
+                data_source, 
                 uploaded_file
             )
         
@@ -832,19 +1033,17 @@ def main():
         
         with col2:
             confidence_class = "high" if dfw_prediction['confidence_level'] > 80 else "medium" if dfw_prediction['confidence_level'] > 60 else "low"
-            
             st.markdown(f"""
             <div class="stat-card confidence-{confidence_class}">
-            <h4>🎯 Model Confidence</h4>
-            <h2>{dfw_prediction['confidence_level']:.0f}%</h2>
-            <p>R² = {dfw_prediction['model_r2']:.3f}</p>
+                <h4>🎯 Model Confidence</h4>
+                <h2>{dfw_prediction['confidence_level']:.0f}%</h2>
+                <p>R² = {dfw_prediction['model_r2']:.3f}</p>
             </div>
             """, unsafe_allow_html=True)
         
         with col3:
             total_postings = len(market_data)
             avg_per_state = total_postings / len(selected_states)
-            
             st.metric(
                 "📊 Data Points",
                 f"{total_postings:,}",
@@ -853,7 +1052,6 @@ def main():
         
         with col4:
             market_range = market_data['avg_salary'].max() - market_data['avg_salary'].min()
-            
             st.metric(
                 "📈 Market Variance",
                 f"${market_range:,.0f}",
@@ -869,7 +1067,6 @@ def main():
         with col1:
             # Prediction summary
             st.markdown("### 📊 Salary Prediction for DFW")
-            
             pred_df = pd.DataFrame({
                 'Metric': ['Predicted Salary', 'Lower Bound (95% CI)', 'Upper Bound (95% CI)', 'Prediction Range'],
                 'Value': [
@@ -952,41 +1149,32 @@ def main():
             
             with col1:
                 st.markdown("### 📊 Distribution Analysis")
-                if statistical_tests['normality_test']['p_value'] is not None:
-                    norm_result = "Normal" if statistical_tests['normality_test']['is_normal'] else "Non-normal"
-                    st.markdown(f"""
-                    **Shapiro-Wilk Test:**
-                    - Result: {norm_result}
-                    - p-value: {statistical_tests['normality_test']['p_value']:.4f}
-                    """)
-                else:
-                    st.markdown("**Distribution Analysis:**\n- Insufficient data for normality testing")
+                norm_result = "Normal" if statistical_tests['normality_test']['is_normal'] else "Non-normal"
+                st.markdown(f"""
+                **Shapiro-Wilk Test:**
+                - Result: {norm_result}
+                - p-value: {statistical_tests['normality_test']['p_value']:.4f}
+                """)
             
             with col2:
                 st.markdown("### 📈 Market Variance")
-                if statistical_tests['anova_test']['p_value'] is not None:
-                    anova_result = "Significant" if statistical_tests['anova_test']['significant'] else "Not significant"
-                    st.markdown(f"""
-                    **ANOVA F-Test:**
-                    - Result: {anova_result}
-                    - F-statistic: {statistical_tests['anova_test']['f_statistic']:.2f}
-                    - p-value: {statistical_tests['anova_test']['p_value']:.4f}
-                    """)
-                else:
-                    st.markdown("**Market Variance:**\n- Insufficient data for ANOVA testing")
+                anova_result = "Significant" if statistical_tests['anova_test']['significant'] else "Not significant"
+                st.markdown(f"""
+                **ANOVA F-Test:**
+                - Result: {anova_result}
+                - F-statistic: {statistical_tests['anova_test']['f_statistic']:.2f}
+                - p-value: {statistical_tests['anova_test']['p_value']:.4f}
+                """)
             
             with col3:
                 st.markdown("### 💰 COL Correlation")
-                if statistical_tests['col_correlation']['correlation'] is not None:
-                    corr_strength = "Strong" if abs(statistical_tests['col_correlation']['correlation']) > 0.7 else "Moderate" if abs(statistical_tests['col_correlation']['correlation']) > 0.4 else "Weak"
-                    st.markdown(f"""
-                    **Pearson Correlation:**
-                    - Strength: {corr_strength}
-                    - r = {statistical_tests['col_correlation']['correlation']:.3f}
-                    - p-value: {statistical_tests['col_correlation']['p_value']:.4f}
-                    """)
-                else:
-                    st.markdown("**COL Correlation:**\n- Insufficient data for correlation analysis")
+                corr_strength = "Strong" if abs(statistical_tests['col_correlation']['correlation']) > 0.7 else "Moderate" if abs(statistical_tests['col_correlation']['correlation']) > 0.4 else "Weak"
+                st.markdown(f"""
+                **Pearson Correlation:**
+                - Strength: {corr_strength}
+                - r = {statistical_tests['col_correlation']['correlation']:.3f}
+                - p-value: {statistical_tests['col_correlation']['p_value']:.4f}
+                """)
         
         # === DETAILED DATA ===
         st.markdown("---")
@@ -1038,12 +1226,12 @@ def main():
                 pred_summary.to_excel(writer, sheet_name='DFW_Prediction', index=False)
             
             return output.getvalue()
-        
+
         def create_pdf_report():
             """Create comprehensive PDF report"""
             if not PDF_AVAILABLE:
                 return None
-            
+                
             buffer = BytesIO()
             doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=18)
             
@@ -1070,6 +1258,15 @@ def main():
                 spaceBefore=20
             )
             
+            subheader_style = ParagraphStyle(
+                'CustomSubHeader',
+                parent=styles['Heading3'],
+                fontSize=14,
+                textColor=colors.HexColor('#1f4e79'),
+                spaceAfter=8,
+                spaceBefore=12
+            )
+            
             # Title Page
             elements.append(Paragraph("🔬 Advanced Market Intelligence Report", title_style))
             elements.append(Spacer(1, 20))
@@ -1079,7 +1276,6 @@ def main():
             elements.append(Paragraph(f"<b>Source Markets:</b> {', '.join(selected_states)}", styles['Normal']))
             elements.append(Paragraph(f"<b>Competitors Analyzed:</b> {', '.join(selected_competitors)}", styles['Normal']))
             elements.append(Paragraph(f"<b>Analysis Date:</b> {datetime.now().strftime('%B %d, %Y')}", styles['Normal']))
-            
             elements.append(Spacer(1, 30))
             
             # Key Metrics
@@ -1108,6 +1304,140 @@ def main():
             ]))
             
             elements.append(summary_table)
+            elements.append(Spacer(1, 20))
+            
+            # Market Analysis
+            elements.append(Paragraph("Market Differential Analysis", header_style))
+            
+            # Prepare market data for table
+            market_table_data = [['Market', 'Avg Salary', 'Sample Size', 'Raw Differential', 'COL Adjusted', 'Confidence']]
+            for _, row in differential_analysis.iterrows():
+                market_table_data.append([
+                    row['state'],
+                    f"${row['avg_salary']:,.0f}",
+                    f"{int(row['sample_size'])}",
+                    f"{row['raw_differential']:+.1f}%",
+                    f"{row['col_adjusted_differential']:+.1f}%",
+                    f"{row['confidence_score']:.0f}%"
+                ])
+            
+            market_table = Table(market_table_data)
+            market_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#ff6b35')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 10),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                ('BACKGROUND', (0, 1), (-1, -1), colors.lightgrey),
+                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                ('FONTSIZE', (0, 1), (-1, -1), 9)
+            ]))
+            
+            elements.append(market_table)
+            elements.append(Spacer(1, 20))
+            
+            # Statistical Validation
+            if include_statistical_tests:
+                elements.append(Paragraph("Statistical Validation", header_style))
+                
+                # Normality test
+                norm_result = "Normal" if statistical_tests['normality_test']['is_normal'] else "Non-normal"
+                elements.append(Paragraph(f"<b>Distribution Analysis (Shapiro-Wilk Test):</b> {norm_result} (p-value: {statistical_tests['normality_test']['p_value']:.4f})", styles['Normal']))
+                
+                # ANOVA test
+                anova_result = "Significant" if statistical_tests['anova_test']['significant'] else "Not significant"
+                elements.append(Paragraph(f"<b>Market Variance (ANOVA F-Test):</b> {anova_result} (F = {statistical_tests['anova_test']['f_statistic']:.2f}, p = {statistical_tests['anova_test']['p_value']:.4f})", styles['Normal']))
+                
+                # Correlation
+                corr_strength = "Strong" if abs(statistical_tests['col_correlation']['correlation']) > 0.7 else "Moderate" if abs(statistical_tests['col_correlation']['correlation']) > 0.4 else "Weak"
+                elements.append(Paragraph(f"<b>Cost of Living Correlation:</b> {corr_strength} (r = {statistical_tests['col_correlation']['correlation']:.3f}, p = {statistical_tests['col_correlation']['p_value']:.4f})", styles['Normal']))
+                
+                elements.append(Spacer(1, 20))
+            
+            # Strategic Insights
+            elements.append(Paragraph("Strategic Intelligence & Recommendations", header_style))
+            
+            # Find highest/lowest markets
+            highest_market = differential_analysis.loc[differential_analysis['avg_salary'].idxmax()]
+            lowest_market = differential_analysis.loc[differential_analysis['avg_salary'].idxmin()]
+            dfw_vs_highest = ((dfw_prediction['predicted_salary'] / highest_market['avg_salary']) - 1) * 100
+            
+            insights = [
+                f"• Highest paying market: {highest_market['state']} (${highest_market['avg_salary']:,.0f})",
+                f"• Lowest paying market: {lowest_market['state']} (${lowest_market['avg_salary']:,.0f})",
+                f"• DFW vs. highest market: {dfw_vs_highest:+.1f}% differential",
+                f"• Model confidence: {dfw_prediction['confidence_level']:.0f}% (R² = {dfw_prediction['model_r2']:.3f})"
+            ]
+            
+            for insight in insights:
+                elements.append(Paragraph(insight, styles['Normal']))
+            
+            elements.append(Spacer(1, 15))
+            
+            # Generate recommendations
+            recommendations = []
+            if dfw_prediction['confidence_level'] > 80:
+                recommendations.append("✅ High confidence in DFW prediction - suitable for strategic planning")
+            elif dfw_prediction['confidence_level'] > 60:
+                recommendations.append("⚠️ Moderate confidence - consider additional validation")
+            else:
+                recommendations.append("🔍 Low confidence - expand data collection")
+            
+            if dfw_vs_highest < -15:
+                recommendations.append(f"💰 Cost advantage: DFW offers {abs(dfw_vs_highest):.0f}% salary savings")
+            elif dfw_vs_highest > 15:
+                recommendations.append(f"💸 Premium market: DFW requires {dfw_vs_highest:.0f}% salary premium")
+            
+            if include_statistical_tests and statistical_tests['col_correlation']['significant']:
+                recommendations.append("🏠 COL correlation confirmed - adjust for local costs")
+            
+            elements.append(Paragraph("Recommendations:", subheader_style))
+            for rec in recommendations:
+                elements.append(Paragraph(f"• {rec}", styles['Normal']))
+            
+            # Page break for data tables
+            elements.append(PageBreak())
+            
+            # Raw Data Summary (first 20 rows)
+            elements.append(Paragraph("Sample Market Data", header_style))
+            elements.append(Paragraph(f"Showing first 20 records of {len(market_data)} total data points", styles['Normal']))
+            elements.append(Spacer(1, 10))
+            
+            # Prepare sample data
+            sample_data = market_data.head(20)
+            data_table_data = [['Market', 'Company', 'Min Salary', 'Max Salary', 'Avg Salary', 'Source']]
+            
+            for _, row in sample_data.iterrows():
+                data_table_data.append([
+                    row['state'],
+                    row['company'][:15] + '...' if len(row['company']) > 15 else row['company'],
+                    f"${row['min_salary']:,.0f}",
+                    f"${row['max_salary']:,.0f}",
+                    f"${row['avg_salary']:,.0f}",
+                    row['source']
+                ])
+            
+            data_table = Table(data_table_data)
+            data_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1f4e79')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 8),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                ('BACKGROUND', (0, 1), (-1, -1), colors.lightgrey),
+                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                ('FONTSIZE', (0, 1), (-1, -1), 7)
+            ]))
+            
+            elements.append(data_table)
+            
+            # Footer
+            elements.append(Spacer(1, 30))
+            elements.append(Paragraph("🔬 Advanced Market Intelligence Platform | The Firm Statistical Analytics Division", 
+                                    ParagraphStyle('Footer', parent=styles['Normal'], fontSize=8, 
+                                                 textColor=colors.grey, alignment=TA_CENTER)))
             
             # Build PDF
             doc.build(elements)
@@ -1180,7 +1510,7 @@ def main():
             elif dfw_vs_highest > 15:
                 recommendations.append(f"💸 **Premium market:** DFW requires {dfw_vs_highest:.0f}% salary premium")
             
-            if include_statistical_tests and statistical_tests['col_correlation']['correlation'] is not None and statistical_tests['col_correlation']['significant']:
+            if include_statistical_tests and statistical_tests['col_correlation']['significant']:
                 recommendations.append("🏠 **COL correlation confirmed** - adjust for local costs")
             
             for rec in recommendations:
@@ -1198,16 +1528,25 @@ def main():
             
             **Advanced predictive analytics** for The Firm's strategic workforce planning.
             
+            **📊 Expanded Market Coverage (2025):**
+            
+            - **🏆 Tier 1 Markets**: CA, CO, WA, NY, CT (Established 2021-2023)
+            - **🚀 Tier 2 Markets**: IL, MN, MD, HI (New 2024-2025) 
+            - **⭐ Tier 3 Markets**: MA, OR, NV, RI, NJ, VT (Emerging)
+            - **📍 Total Coverage**: 50+ metropolitan areas across 13+ states
+            
             **Enhanced Capabilities:**
-            - 🔍 **Multi-state data collection** from pay transparency markets
+            
+            - 🔍 **Multi-state data collection** from 13 pay transparency markets
             - 📊 **Statistical modeling** with confidence intervals
             - 🎯 **DFW market prediction** using regression analysis
-            - 📈 **Market differential analysis** with COL adjustments
+            - 📈 **Market differential analysis** with updated 2025 COL data
             - 🔬 **Statistical validation** (ANOVA, correlation tests)
             - 💡 **Predictive insights** for competitive positioning
             
             **Scientific Approach:**
-            1. **Data Collection**: Aggregate from transparent markets (CA, CO, NY, WA, IL)
+            
+            1. **Data Collection**: Aggregate from 13 transparent markets
             2. **Statistical Analysis**: Apply regression modeling and hypothesis testing
             3. **Market Prediction**: Calculate DFW salary ranges with confidence intervals
             4. **Strategic Intelligence**: Generate actionable insights for hiring decisions
@@ -1221,7 +1560,9 @@ def main():
             Choose from engineering, manufacturing, or management positions
             
             **2. Choose Source Markets**
-            Select pay transparency states for data collection
+            - **Tier 1**: Established markets (high confidence)
+            - **Tier 2**: New 2025 markets (emerging data)
+            - **Tier 3**: Additional high-value markets
             
             **3. Pick Competitors**
             Target companies for competitive analysis
@@ -1230,17 +1571,70 @@ def main():
             Advanced statistical modeling with confidence scoring
             
             **5. Download Results**
-            Comprehensive Excel report with all analytics
+            Comprehensive Excel/PDF reports with all analytics
+            
+            ---
+            
+            ### 📈 **New 2025 Markets**
+            
+            **🔥 Illinois** (Jan 2025)
+            - 15+ employees
+            - Pay scale + benefits required
+            - Chicago metro + downstate
+            
+            **⭐ Minnesota** (Jan 2025) 
+            - 30+ employees
+            - Starting salary ranges
+            - Twin Cities + greater MN
+            
+            **💎 Massachusetts** (Oct 2025)
+            - 25+ employees  
+            - Premium market data
+            - Boston metro excluded from COL
             """)
         
-        st.info("🔬 **Statistical Package Ready**: scipy, scikit-learn, statsmodels integrated")
+        # Market coverage visualization
+        st.markdown("---")
+        st.markdown("### 📊 **Available Pay Transparency Markets**")
+        
+        # Create a summary table of available markets
+        market_summary = []
+        
+        # Add transparent states
+        for state, info in config['transparent_states'].items():
+            market_summary.append({
+                'State': state,
+                'Type': 'Transparent',
+                'Metros': len(info['metros']),
+                'COL Index': info['col_index'],
+                'Law Effective': info.get('law_effective', 'N/A'),
+                'Threshold': info.get('employer_threshold', 'N/A'),
+                'Maturity': info['market_maturity']
+            })
+        
+        # Add limited markets
+        for state, info in config['limited_markets'].items():
+            market_summary.append({
+                'State': state,
+                'Type': 'Limited',
+                'Metros': len(info['metros']),
+                'COL Index': info['col_index'],
+                'Law Effective': info.get('law_effective', 'N/A'),
+                'Threshold': info.get('employer_threshold', 'N/A'),
+                'Maturity': info['market_maturity']
+            })
+        
+        summary_df = pd.DataFrame(market_summary)
+        st.dataframe(summary_df, use_container_width=True, hide_index=True)
+        
+        st.info("🔬 **Statistical Package Ready**: scipy, scikit-learn, statsmodels integrated | **13+ markets available** | **Updated 2025 COL indices** | **Texas DFW available as limited market**")
     
     # === FOOTER ===
     st.markdown("---")
     st.markdown("""
     <div style="text-align: center; color: #666; font-size: 12px; padding: 1rem;">
-    <p>🔬 <strong>Advanced Market Intelligence Platform</strong> | The Firm Statistical Analytics Division</p>
-    <p>📊 Predictive modeling | 🔐 Confidential strategic intelligence | 🎯 Evidence-based workforce planning</p>
+        <p>🔬 <strong>Advanced Market Intelligence Platform</strong> | The Firm Statistical Analytics Division</p>
+        <p>📊 Predictive modeling | 🔐 Confidential strategic intelligence | 🎯 Evidence-based workforce planning</p>
     </div>
     """, unsafe_allow_html=True)
 
